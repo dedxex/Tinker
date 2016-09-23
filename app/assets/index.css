@@ -1,0 +1,10 @@
+.ng-­‐touched.ng-­‐invalid	
+  {	
+  border:	
+  1px	
+  solid	
+  red;
+}
+.scroll-content {
+  position: fixed;
+}

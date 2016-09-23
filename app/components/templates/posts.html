@@ -1,0 +1,45 @@
+
+
+<div class="col-md-6">
+    <div *ngIf="isLoading"><spinner></spinner></div>
+    <select class="form-control" (change)="reloadPost({userId : u.value})" #u>
+        <option value="">Select User</option>
+        <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
+    </select>
+    <ul class="list-group">
+    <li class="list-group-item" *ngFor="#post of posts">
+        <div (click)="select(post)">{{post.title}}</div>
+    </li>
+</ul>
+</div>
+
+<div *ngIf="show" class="col-md-5">
+    <div class="scroll-content">
+        <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">{{title}}</h4>
+            <p class="card-text">{{body}}</p>
+        </div>
+    <ul class="list-group list-group-flush">
+        <div *ngIf="isLoadingComments"><spinner></spinner></div>
+
+            <li class="list-group-item">
+                <div *ngFor="#comment of comments" >
+                <div class="media">
+                    <div class="media-left">
+                        <div *ngIf="isLoading"><spinner></spinner></div>
+                        <a *ngIf="!isLoading" href="#">
+                            <img (load)="onImgLoad()" class="media-object img-circle" src="http://lorempixel.com/50/50/people?random={{comment.id}}" alt="...">
+                        </a>
+                     </div>
+                <div class="media-body">
+                <h4>{{comment.name}}</h4>
+            </div>
+            </div>                        
+        </div>
+            </li>
+
+    </ul>
+    </div>
+    </div>
+</div>
