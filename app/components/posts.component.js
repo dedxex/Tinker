@@ -1,4 +1,4 @@
-System.register(['angular2/core', './services/users.service', './services/posts', 'angular2/http', './spinner'], function(exports_1, context_1) {
+System.register(['angular2/core', './services/users.service', './services/posts', 'angular2/http', './spinner', './pagination'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './services/users.service', './services/posts'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, users_service_1, posts_1, http_1, spinner_1;
+    var core_1, users_service_1, posts_1, http_1, spinner_1, pagination_1;
     var PostsComponent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['angular2/core', './services/users.service', './services/posts'
             },
             function (spinner_1_1) {
                 spinner_1 = spinner_1_1;
+            },
+            function (pagination_1_1) {
+                pagination_1 = pagination_1_1;
             }],
         execute: function() {
             PostsComponent = (function () {
@@ -36,10 +39,12 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                     this._users = _users;
                     this.users = [];
                     this.posts = [];
+                    this.pagedPost = [];
                     this.show = false;
                     this.isLoading = true;
                     this.isLoadingComments = true;
                     this.isLoadingImage = true;
+                    this.pageSize = 10;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -54,6 +59,7 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                         .subscribe(function (posts) {
                         _this.isLoading = false;
                         _this.posts = posts;
+                        _this.pagedPost = _this.getPostsInPage(1);
                     });
                 };
                 PostsComponent.prototype.select = function (post) {
@@ -74,14 +80,29 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                     this.isLoadingImage = false;
                 };
                 PostsComponent.prototype.reloadPost = function (filter) {
-                    this.posts = null;
+                    //this.posts=null;
                     this.loadPosts(filter);
+                };
+                PostsComponent.prototype.onPageChanged = function (page) {
+                    console.log("page changed");
+                    this.pagedPost = this.getPostsInPage(page);
+                };
+                PostsComponent.prototype.getPostsInPage = function (page) {
+                    // console.log(this.posts);
+                    var results = [];
+                    var startingIndex = (page - 1) * this.pageSize;
+                    var EndingIndex = Math.min(startingIndex + this.pageSize, this.posts.length);
+                    for (var i = startingIndex; i < EndingIndex; i++) {
+                        results.push(this.posts[i]);
+                    }
+                    // console.log(results);
+                    return results;
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
                         selector: 'posts',
                         templateUrl: "/app/components/templates/posts.html",
-                        directives: [spinner_1.Spinner],
+                        directives: [spinner_1.Spinner, pagination_1.Pagination],
                         providers: [posts_1.PostsService, http_1.HTTP_PROVIDERS, users_service_1.UsersService]
                     }), 
                     __metadata('design:paramtypes', [posts_1.PostsService, users_service_1.UsersService])

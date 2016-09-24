@@ -57,7 +57,7 @@ System.register(['angular2/core', 'angular2/common', './services/users.service',
                 CreateUser.prototype.onSubmit = function () {
                     var _this = this;
                     var result;
-                    if (this.user) {
+                    if (!this.user) {
                         result = this._usersService.updateUser(this.user);
                     }
                     else {

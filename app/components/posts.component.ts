@@ -5,18 +5,20 @@ import { PostsService } from './services/posts';
 import { HTTP_PROVIDERS } from 'angular2/http';
 
 import { Spinner } from './spinner';
+import { Pagination } from './pagination';
 @Component({
     selector : 'posts',
     templateUrl : "/app/components/templates/posts.html",
-    directives : [Spinner],
+    directives : [Spinner,Pagination],
     providers : [PostsService,HTTP_PROVIDERS,UsersService]
 })
 export class PostsComponent {
-    users = [];
     constructor(private _postsService : PostsService,
-                private _users : UsersService) {
+                     private _users : UsersService) {
     }
+    users = [];
     posts = [];
+    pagedPost=[];
     body;
     title;
     comments;
@@ -25,6 +27,8 @@ export class PostsComponent {
     isLoadingComments=true;
     isLoadingImage=true;
     tag;
+    pageSize=10; 
+
     ngOnInit() {
         this._users.getUsers()
         .subscribe(users => this.users =users);
@@ -36,6 +40,7 @@ export class PostsComponent {
         .subscribe(posts => {
             this.isLoading=false;
             this.posts = posts;
+            this.pagedPost = this.getPostsInPage(1);
         } );
     }
     select(post) {
@@ -55,7 +60,23 @@ export class PostsComponent {
         this.isLoadingImage=false;
     }
     reloadPost(filter) {
-        this.posts=null;
+        //this.posts=null;
         this.loadPosts(filter);
+    }
+    onPageChanged(page) {
+        console.log("page changed");
+        this.pagedPost = this.getPostsInPage(page);
+    }
+    getPostsInPage(page) {
+        // console.log(this.posts);
+        var results = [];
+        var startingIndex = (page-1) * this.pageSize;
+        var EndingIndex = Math.min(startingIndex + this.pageSize,this.posts.length);
+
+        for(var i=startingIndex; i<EndingIndex; i++) {
+            results.push(this.posts[i]);
+        }
+            // console.log(results);
+            return results;
     }
 }

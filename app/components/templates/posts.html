@@ -5,9 +5,10 @@
     <select class="form-control" (change)="reloadPost({userId : u.value})" #u>
         <option value="">Select User</option>
         <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
-    </select>
+    </select> 
+    <pagination [items]="posts" (pageChanged)="onPageChanged($event)"></pagination>
     <ul class="list-group">
-    <li class="list-group-item" *ngFor="#post of posts">
+    <li class="list-group-item" *ngFor="#post of pagedPost">
         <div (click)="select(post)">{{post.title}}</div>
     </li>
 </ul>
@@ -38,7 +39,6 @@
             </div>                        
         </div>
             </li>
-
     </ul>
     </div>
     </div>

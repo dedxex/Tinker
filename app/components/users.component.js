@@ -44,11 +44,11 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './service
                 UsersComponent.prototype.deleteUser = function (user) {
                     var _this = this;
                     if (confirm("Are you sure you want to delete " + user.name + "?")) {
-                        var index = this.users.indexOf(user);
+                        var index = this.listOfUsers.indexOf(user);
                         console.log(index);
                         // Here, with the splice method, we remove 1 object
                         // at the given index.
-                        this.users.splice(index, 1);
+                        this.listOfUsers.splice(index, 1);
                         this._usersService.deleteUser(user.id)
                             .subscribe(null, function (err) {
                             alert("Could not delete the user.");

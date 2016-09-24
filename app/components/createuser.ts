@@ -29,7 +29,7 @@ export class CreateUser implements CanDeactivate,OnInit {
                 suite : [''],
                 city :[''],
                 zipcode : ['']
-            })
+            }) 
 
         });
     }
@@ -40,7 +40,7 @@ export class CreateUser implements CanDeactivate,OnInit {
     }
     onSubmit() {
         var result;
-        if(this.user) {
+        if(!this.user) {
             result = this._usersService.updateUser(this.user);
         }
         else {
