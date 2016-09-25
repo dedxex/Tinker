@@ -30,11 +30,13 @@ export class PostsComponent {
     pageSize=10; 
 
     ngOnInit() {
+        console.log("getting list of uses");
         this._users.getUsers()
         .subscribe(users => this.users =users);
         this.loadPosts();
     }
     loadPosts(filter?) {
+        console.log("getting posts");
         this.isLoading=true;
         this._postsService.getPosts(filter)
         .subscribe(posts => {
@@ -44,6 +46,7 @@ export class PostsComponent {
         } );
     }
     select(post) {
+        console.log(post.title+" is selected");
         this.show=true;
         this.body= post.body;
         this.title = post.title;
@@ -60,11 +63,14 @@ export class PostsComponent {
         this.isLoadingImage=false;
     }
     reloadPost(filter) {
-        //this.posts=null;
+        this.comments=null;
         this.loadPosts(filter);
     }
     onPageChanged(page) {
         console.log("page changed");
+        this.show=false;
+        this.comments=null;
+
         this.pagedPost = this.getPostsInPage(page);
     }
     getPostsInPage(page) {

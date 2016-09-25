@@ -23,7 +23,13 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
         execute: function() {
             NavBar = (function () {
                 function NavBar() {
+                    this.alwaysTrue = true;
+                    this.isActive = 'home';
                 }
+                NavBar.prototype.activated = function (link) {
+                    console.log('activated' + " " + link);
+                    this.isActive = link;
+                };
                 NavBar = __decorate([
                     core_1.Component({
                         selector: 'navbar',

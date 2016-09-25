@@ -45,7 +45,6 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './service
                     var _this = this;
                     if (confirm("Are you sure you want to delete " + user.name + "?")) {
                         var index = this.listOfUsers.indexOf(user);
-                        console.log(index);
                         // Here, with the splice method, we remove 1 object
                         // at the given index.
                         this.listOfUsers.splice(index, 1);
@@ -57,7 +56,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './service
                             // it used to be.
                             _this.users.splice(index, 0, user);
                         });
-                        console.log("clicked");
+                        console.log(user.name + " deleted");
                     }
                 };
                 UsersComponent = __decorate([

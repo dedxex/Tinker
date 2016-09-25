@@ -44,7 +44,7 @@ export class CreateUser implements CanDeactivate,OnInit {
             result = this._usersService.updateUser(this.user);
         }
         else {
-            result = this._usersService.addUser(this.createUserForm.value);
+            result = this._usersService.addUser(this.createUserForm.value);        
         }
         result.subscribe( x => {
             this._router.navigate(['Users']);

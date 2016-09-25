@@ -29,11 +29,9 @@ export class UsersComponent {
     deleteUser(user){
 		if (confirm("Are you sure you want to delete " + user.name + "?")) {
 			var index = this.listOfUsers.indexOf(user);
-            console.log(index);
 			// Here, with the splice method, we remove 1 object
             // at the given index.
             this.listOfUsers.splice(index, 1);
-
 			this._usersService.deleteUser(user.id)
 				.subscribe(null, 
 					err => {
@@ -43,7 +41,7 @@ export class UsersComponent {
                         // it used to be.
 						this.users.splice(index, 0, user);
 					});
-            console.log("clicked");
+            console.log(user.name+" deleted");
 		}
 }
 }

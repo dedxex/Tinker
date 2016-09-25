@@ -48,12 +48,14 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
+                    console.log("getting list of uses");
                     this._users.getUsers()
                         .subscribe(function (users) { return _this.users = users; });
                     this.loadPosts();
                 };
                 PostsComponent.prototype.loadPosts = function (filter) {
                     var _this = this;
+                    console.log("getting posts");
                     this.isLoading = true;
                     this._postsService.getPosts(filter)
                         .subscribe(function (posts) {
@@ -64,6 +66,7 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                 };
                 PostsComponent.prototype.select = function (post) {
                     var _this = this;
+                    console.log(post.title + " is selected");
                     this.show = true;
                     this.body = post.body;
                     this.title = post.title;
@@ -80,11 +83,13 @@ System.register(['angular2/core', './services/users.service', './services/posts'
                     this.isLoadingImage = false;
                 };
                 PostsComponent.prototype.reloadPost = function (filter) {
-                    //this.posts=null;
+                    this.comments = null;
                     this.loadPosts(filter);
                 };
                 PostsComponent.prototype.onPageChanged = function (page) {
                     console.log("page changed");
+                    this.show = false;
+                    this.comments = null;
                     this.pagedPost = this.getPostsInPage(page);
                 };
                 PostsComponent.prototype.getPostsInPage = function (page) {

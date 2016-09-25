@@ -26,8 +26,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 Pagination.prototype.ngOnChanges = function () {
                     this.currentPage = 1;
                     var pagesCount = this.items.length / this.pageSize;
-                    console.log(this.items.length + "" + this.pageSize);
-                    //this function creates pages
+                    // console.log(this.items.length+""+this.pageSize);
+                    console.log("pages created");
                     this.pages = [];
                     for (var i = 1; i <= pagesCount; i++) {
                         this.pages.push(i);

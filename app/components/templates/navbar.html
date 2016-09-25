@@ -1,8 +1,9 @@
 <nav class="navbar navbar-light bg-faded">
   <div class="nav navbar-nav">
-    <a class="nav-item nav-link active" [routerLink]="['Home']">Home<span class="sr-only">(current)</span></a>
-    <a class="nav-item nav-link" [routerLink]="['Users']">Users</a>
-    <a class="nav-item nav-link" [routerLink]="['Posts']">Posts</a>
-    <a class="nav-item nav-link" href="#">About</a>
+    
+    <a class="nav-item nav-link" [class.text-primary]="isActive==='home'" [routerLink]="['Home']" (click)="activated('home')" >Home<span *ngIf="isActive=='home'" class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" [class.text-primary]="isActive==='users'" [routerLink]="['Users']" (click)="activated('users')" >Users<span *ngIf="isActive=='users'" class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" [class.text-primary]="isActive==='posts'" [routerLink]="['Posts']" (click)="activated('post')" >Posts<span *ngIf="isActive=='posts'" class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" [class.text-primary]="isActive==='about'" href="#">About</a>
   </div>
 </nav>
